@@ -1,7 +1,7 @@
 package com.linzhenghong.o2o.util;
 
 /**
- * 路径工具类
+ * 路径地址处理工具类
  */
 public class PathUtil {
 
@@ -15,10 +15,12 @@ public class PathUtil {
      * @return basePath
      */
     public static String getImgBasePath(){
+        //获取系统
         String os=System.getProperty("os.name");
         String basePath="";
+        //判断不同的系统，图片存放的位置
         if(os.toLowerCase().startsWith("win")){
-            basePath="D:/image";
+            basePath="D:/image/";
         }else{
             basePath="/home/linzhenhong/image/";
         }
@@ -27,12 +29,12 @@ public class PathUtil {
     }
 
     /**
-     * 返回项目图片的相对路径
+     * 返回项目图片的子路径
      * @param shopId
      * @return imagePath
      */
     public static String getShopImagePath(long shopId) {
-        String imagePath = "/upload/item/shop/" + shopId + "/";
+        String imagePath = "upload/item/shop/" + shopId + "/";
         return imagePath.replace("/", seperator);
     }
 }
