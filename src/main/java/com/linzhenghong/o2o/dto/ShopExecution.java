@@ -5,6 +5,9 @@ import com.linzhenghong.o2o.enums.ShopStateEnum;
 
 import java.util.List;
 
+/**店铺执行结果
+ * @author LinZhenHong
+ */
 public class ShopExecution {
     /**
      * 状态标识
@@ -38,7 +41,6 @@ public class ShopExecution {
     /**
      * 店铺操作失败的时候使用的构造器
      * @param shopStateEnum
-     * @param shop
      */
     public ShopExecution(ShopStateEnum shopStateEnum){
         this.state=shopStateEnum.getState();

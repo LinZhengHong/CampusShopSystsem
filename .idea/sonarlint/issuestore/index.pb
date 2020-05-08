@@ -47,3 +47,15 @@ u
 Esrc/main/java/com/linzhenghong/o2o/web/superadmin/AreaController.java,7\c\7c788195aeeb5009be4a7c70f1ce4893293b9bbc
 J
 target/o2o/WEB-INF/web.xml,b\1\b16594dbe8d416499770ca1c84e9ef920d10c417
+c
+3src/main/java/com/linzhenghong/o2o/dao/ShopDao.java,f\b\fb1ce376101a1bcea3b28e57a065d61ca299c4f0
+g
+7src/test/java/com/linzhenghong/o2o/dao/ShopDaoTest.java,c\7\c7c120566bafa64b54fd856642107557680f5170
+k
+;src/main/java/com/linzhenghong/o2o/enums/ShopStateEnum.java,d\c\dc19919067b89455b18248f56cafaee3d1d17c42
+f
+6src/main/java/com/linzhenghong/o2o/util/ImageUtil.java,b\d\bd949b92b494a3c0662aa8c72ebfd79ef94cd4ba
+e
+5src/main/java/com/linzhenghong/o2o/util/PathUtil.java,8\9\8974e093c4213f6d5ea79021e8caf9019e34dee7
+i
+9src/main/java/com/linzhenghong/o2o/dto/ShopExecution.java,b\8\b8bbd861ce92f55863e73fa0f0f192d7672cdbcd
