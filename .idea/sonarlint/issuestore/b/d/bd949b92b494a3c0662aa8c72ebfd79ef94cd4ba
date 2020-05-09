@@ -1,7 +1,5 @@
 
-W
-java:S1118":Add a private constructor to hide the implicit public one.(Æë…8ó©ìü.
 E
-java:S2885"(Make "sDateFormat" an instance variable.(½›ª¢8–¶Åü.
+java:S2885"(Make "sDateFormat" an instance variable.(½›ª¢8–¶Åü.
 g
-java:S3027<"JPut single-quotes around '.' to use the faster "lastIndexOf(char)" method.(ğ÷Û™8³îìü.
+java:S3027G"JPut single-quotes around '.' to use the faster "lastIndexOf(char)" method.(ğ÷Û™8³îìü.
