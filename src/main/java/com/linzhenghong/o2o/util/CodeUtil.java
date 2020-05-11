@@ -15,8 +15,9 @@ public class CodeUtil {
         String verifyCodeActual=HttpServletRequestUtil.getString(request,"verifyCodeActual");
         if (verifyCodeActual==null|| !verifyCodeActual.equals(verifyCodeExpected)){
             return false;
-        }else {
-            return true;
         }
+
+        return true;
+
     }
 }

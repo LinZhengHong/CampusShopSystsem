@@ -28,15 +28,15 @@ $(function () {
             const shop={};
             shop.shopName=$('#shop-name').val();
             shop.shopAddr=$('#shop-addr').val();
-            shop.shopPhone=$('#shop-phone').val();
+            shop.phone=$('#shop-phone').val();
             shop.shopCategory={
                 shopCategoryId:$('#shop-category').find('option').not(function () {
-                    return!this.selected();
+                    return !this.selected;
                 }).data('id')
             };
             shop.area ={
                 areaId:$('#area').find('option').not(function () {
-                    return!this.selected();
+                    return !this.selected;
                 }).data('id')
             };
             const shopImg=$('#shop-img')[0].files[0];
