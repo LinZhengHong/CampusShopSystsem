@@ -65,12 +65,8 @@ U
 %src/main/resources/mapper/ShopDao.xml,4\3\4337d9c82c1bee7cc5e61a74bca658ce2c4ecdb0
 X
 (src/main/resources/spring/spring-dao.xml,f\e\fe316c858e29e14c1208cd4f9042c3e02061c7cf
-X
-(src/main/resources/spring/spring-web.xml,c\e\cee01ac7e1119d9100359a41017bbf735154b1c8
 R
 "src/main/resources/jdbc.properties,0\1\0136773a90d52716a72d1440f04397293425e328
-U
-%src/main/resources/mybatis-config.xml,c\5\c57e9adfd9f8e6779e12613aa46bf13356aeaed8
 Q
 !target/classes/mapper/AreaDao.xml,0\a\0ab9c8743ccd6403d35dce33d9d349a24ed80b92
 Q
@@ -115,3 +111,7 @@ x
 Hsrc/main/java/com/linzhenghong/o2o/exception/ShopOperationException.java,4\3\434149e942d68e35aff866bcde29a7b6f38c5bb5
 J
 target/classes/logback.xml,a\1\a1f34499467b4defbdd2155fa7239595540a7587
+~
+Nsrc/main/java/com/linzhenghong/o2o/web/shopadmin/ShopManagementController.java,8\a\8a7ce71edbfbff178b2bcc98a2e1b3e368dd3b48
+s
+Csrc/main/java/com/linzhenghong/o2o/util/HttpServletRequestUtil.java,3\7\37788ecf7d48b20c9a625e37e2095e31a6c77056
