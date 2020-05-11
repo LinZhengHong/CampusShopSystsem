@@ -61,8 +61,6 @@ i
 9src/main/java/com/linzhenghong/o2o/dto/ShopExecution.java,b\8\b8bbd861ce92f55863e73fa0f0f192d7672cdbcd
 U
 %src/main/resources/mapper/AreaDao.xml,e\1\e1c935436dbb1fb28243586009acfab6f654932d
-U
-%src/main/resources/mapper/ShopDao.xml,4\3\4337d9c82c1bee7cc5e61a74bca658ce2c4ecdb0
 X
 (src/main/resources/spring/spring-dao.xml,f\e\fe316c858e29e14c1208cd4f9042c3e02061c7cf
 R
