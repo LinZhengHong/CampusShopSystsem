@@ -13,8 +13,6 @@ import com.linzhenghong.o2o.service.ShopCategoryService;
 import com.linzhenghong.o2o.service.ShopService;
 import com.linzhenghong.o2o.util.CodeUtil;
 import com.linzhenghong.o2o.util.HttpServletRequestUtil;
-import com.linzhenghong.o2o.util.ImageUtil;
-import com.linzhenghong.o2o.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +44,31 @@ public class ShopManagementController {
 
     @Autowired
     private AreaService areaService;
+
+
+    @RequestMapping(value = "/getshopbyid",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getShopById(HttpServletRequest request){
+        Map<String,Object> modelMap=new HashMap<String,Object>();
+        Long shopId=HttpServletRequestUtil.getLong(request,"shopId");
+        if(shopId>-1){
+            try{
+                Shop shop=shopService.getByShopId(shopId);
+                List<Area> areaList=areaService.getAreaList();
+                modelMap.put("shop",shop);
+                modelMap.put("areaList",areaList);
+                modelMap.put("success",true);
+            }catch (Exception e) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", e.toString());
+            }
+        }else{
+            modelMap.put("success",false);
+            modelMap.put("errMsg","empty shopId");
+        }
+        return modelMap;
+    }
+
 
     /**
      *获取店铺信息
@@ -137,36 +160,82 @@ public class ShopManagementController {
             modelMap.put("errMsg", "请输入店铺信息");
             return modelMap;
         }
-        //3 返回结果
     }
-}
 
     /**
-     * File转成XCommonsMultipartFile
-     * @param inputStream ins
-     * @param file file
+     * 更改店铺
+     * @param request r
+     * @return madelMap
      */
-    /*private static void inputStreamToFile(InputStream inputStream, File file){
-        OutputStream outputStream=null;
-        try{
-            outputStream = new FileOutputStream(file);
-            int byteRead=0;
-            byte[] buffer=new byte[1024];
-            while ((byteRead=inputStream.read(buffer))!=-1){
-                outputStream.write(buffer,0,byteRead);
-            }
+    @RequestMapping(value = "/modifyshop", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> modifyShop(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        //判断验证码
+        if(!CodeUtil.checkVerifyCode(request)){
+            modelMap.put("success",false);
+            modelMap.put("errMsg","输入错误的验证码");
+            return modelMap;
+        }
+        //1接收并转化相应的参数，包括店铺信息以及图片信息
+        String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
+        ObjectMapper mapper = new ObjectMapper();
+        Shop shop = null;
+        try {
+            shop = mapper.readValue(shopStr, Shop.class);
         } catch (Exception e) {
-            throw new RuntimeException("调用inputStreamToFile产生异常"+e.getMessage());
-        }finally {
-            try{
-                if(outputStream!=null)
-                    outputStream.close();
-                if(inputStream!=null){
-                    inputStream.close();
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
+            return modelMap;
+        }
+        //上传的图片可上传或者不上传
+        CommonsMultipartFile shopImg = null;
+        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        if (commonsMultipartResolver.isMultipart(request)) {
+            MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+            shopImg = (CommonsMultipartFile) multipartHttpServletRequest.getFile("shopImg");
+        }
+        //2 修改店铺信息
+        if (shop != null && shop.getShopId()!=null) {
+            //session获取user
+            PersonInfo owner=new PersonInfo();
+            /*PersonInfo owner =(PersonInfo) request.getSession().getServletContext("user");*/
+            owner.setUserId(1L);
+            shop.setOwner(owner);
+            ShopExecution shopExecution = null;
+            try {
+                //如果上传图片为空
+                if(shopImg==null){
+                    shopExecution=shopService.modifyShop(shop,null,null);
                 }
-            }catch (IOException e){
-                throw new RuntimeException("inputStreamToFile关闭io产生异常"+e.getMessage());
+                shopExecution = shopService.modifyShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+
+                if (shopExecution.getState() == ShopStateEnum.SUCCESS.getState()) {
+                    modelMap.put("success", true);
+                    //该用户可以操作的店铺列表
+                    @SuppressWarnings("unchecked")
+                    List<Shop> shopList=(List<Shop>)request.getSession().getAttribute("shopList");
+                    if(shopList==null|| shopList.size()==0){
+                        shopList=new ArrayList<>();
+                    }
+                    shopList.add(shopExecution.getShop());
+                    request.getSession().setAttribute("shopList",shopList);
+                } else {
+                    modelMap.put("success", false);
+                    modelMap.put("errMsg", shopExecution.getStateInfo());
+                }
+            }catch (ShopOperationException e){
+                modelMap.put("success", false);
+                modelMap.put("errMsg", shopExecution.getStateInfo());
+            } catch (IOException e) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", e.getMessage());
             }
+            return modelMap;
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "请输入店铺");
+            return modelMap;
         }
     }
-}*/
+}

@@ -7,6 +7,7 @@ import com.linzhenghong.o2o.entity.PersonInfo;
 import com.linzhenghong.o2o.entity.Shop;
 import com.linzhenghong.o2o.entity.ShopCategory;
 import com.linzhenghong.o2o.enums.ShopStateEnum;
+import com.linzhenghong.o2o.exception.ShopOperationException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,6 +21,22 @@ public class ShopServiceTest extends BaseTest {
 
     @Autowired
     private ShopService shopService;
+
+    /**
+     * 测试更新店铺信息以及图片的处理
+     * @throws ShopOperationException
+     * @throws FileNotFoundException
+     */
+    @Test
+    public void testModifyShop() throws ShopOperationException,FileNotFoundException{
+        Shop shop=new Shop();
+        shop.setShopId(1L);
+        shop.setShopName("修改后的店铺名称");
+        File shopImg=new File("D:/image/xiaohei.jpg");
+        InputStream inputStream=new FileInputStream(shopImg);
+        ShopExecution shopExecution=shopService.modifyShop(shop,inputStream,"xiaohei.jpg");
+        System.out.println("修改后的图片地址为:"+shopExecution.getShop().getShopImg());
+    }
 
     @Test
     public void testAddShop() throws FileNotFoundException {

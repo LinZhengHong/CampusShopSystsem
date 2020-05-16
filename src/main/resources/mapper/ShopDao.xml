@@ -4,7 +4,35 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.linzhenghong.o2o.dao.ShopDao">
 
+    <resultMap id="shopMap" type="Shop">
+        <id column="shop_id" property="shopId"/>
+        <result column="shop_name" property="shopName"/>
+        <result column="shop_desc" property="shopDesc"/>
+        <result column="shop_addr" property="shopAddr"/>
+        <result column="phone" property="phone"/>
+        <result column="shop_img" property="shopImg"/>
+        <result column="priority" property="priority"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_edit_time" property="lastEditTime"/>
+        <result column="enable_status" property="enableStatus"/>
+        <result column="advice" property="advice"/>
+        <association property="shopCategory" column="shop_category_id"
+        javaType="ShopCategory">
+            <id column="shop_category_id" property="shopCategoryId"/>
+            <result column="shop_category_name" property="shopCategoryName"/>
+        </association>
+        <association property="area" column="area_id" javaType="Area">
+            <id column="area_id" property="areaId"/>
+            <result column="area_name" property="areaName"/>
+        </association>
+        <association property="owner" column="user_id" javaType="PersonInfo">
+            <id column="user_id" property="userId"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+
     <!--在进行插入操作时，会自动获取数据库自增主键-->
+    <!--添加店铺-->
     <insert id="insertShop" useGeneratedKeys="true" keyColumn="shop_id" keyProperty="shopId" parameterType="Shop">
         insert into tb_shop(owner_id,area_id,shop_category_id,shop_name,shop_desc,shop_addr,
         phone,shop_img,priority,create_time,last_edit_time,enable_status,advice)
@@ -13,6 +41,7 @@
         #{createTime},#{lastEditTime},#{enableStatus},#{advice})
     </insert>
 
+    <!--更新店铺-->
     <update id="updateShop" parameterType="Shop">
         update tb_shop
         <set>
@@ -30,4 +59,33 @@
         </set>
         where shop_id=#{shopId}
     </update>
+    <!--根据shopId查询店铺-->
+    <select id="queryByShopId" resultMap="shopMap" parameterType="long">
+        select
+        s.shop_id,
+        s.shop_name,
+        s.shop_desc,
+        s.shop_addr,
+        s.phone,
+        s.shop_img,
+        s.priority,
+        s.create_time,
+        s.last_edit_time,
+        s.enable_status,
+        s.advice,
+        a.area_id,
+        a.area_name,
+        sc.shop_category_id,
+        sc.shop_category_name
+        from
+        tb_shop s,
+        tb_area a,
+        tb_shop_category sc
+        where
+        s.area_id=a.area_id
+        and
+        s.shop_category_id=sc.shop_category_id
+        and
+        s.shop_id=#{shopId}
+    </select>
 </mapper>

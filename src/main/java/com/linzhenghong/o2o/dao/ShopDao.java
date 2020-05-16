@@ -11,6 +11,13 @@ import org.springframework.stereotype.Repository;
 public interface ShopDao {
 
     /**
+     * 根据shopId查询店铺
+     * @param shopId
+     * @return shop
+     */
+    Shop queryByShopId(long shopId);
+
+    /**
      * 新增店铺
      * @param shop
      * @return 1

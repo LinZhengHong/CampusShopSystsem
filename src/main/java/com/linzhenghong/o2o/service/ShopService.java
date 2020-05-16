@@ -11,6 +11,26 @@ import java.io.InputStream;
  * @author LinZhenHong
  */
 public interface ShopService {
+
+
+    /**
+     * 根据shopId查询店铺
+     * @param shopId
+     * @return shop
+     */
+    Shop getByShopId(long shopId);
+
+
+    /**
+     * 更新店铺的信息以及图片的处理
+     * @param shop
+     * @param shopImg
+     * @param filename
+     * @return shopExecution
+     */
+    ShopExecution modifyShop(Shop shop,InputStream shopImg,String filename)throws ShopOperationException;
+
+
     /**
      * 添加店铺
      * @param shop

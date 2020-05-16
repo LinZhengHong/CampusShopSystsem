@@ -15,6 +15,16 @@ public class ShopDaoTest extends BaseTest {
     private ShopDao shopDao;
 
     /**
+     * 根据shopId查询店铺
+     */
+    @Test
+    public void testQueryByShopId(){
+        long shopId=1;
+        Shop shop=shopDao.queryByShopId(shopId);
+        System.out.println("店铺类别:"+shop.getShopCategory().getShopCategoryName()+", 店铺区域:"+shop.getArea().getAreaName());
+    }
+
+    /**
      * 新增店铺
      */
     @Test

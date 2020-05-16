@@ -28,6 +28,57 @@ public class ShopServiceImpl implements ShopService{
     @Autowired
     private ShopDao shopDao;
 
+
+    /**
+     * 根据shopId查询店铺
+     *
+     * @param shopId
+     * @return shop
+     */
+    @Override
+    public Shop getByShopId(long shopId) {
+        return null;
+    }
+
+    /**
+     * 更新店铺的信息以及图片的处理
+     *
+     * @param shop
+     * @param shopImg
+     * @param filename
+     * @return shopExecution
+     */
+    @Override
+    public ShopExecution modifyShop(Shop shop, InputStream shopImg, String filename)throws ShopOperationException {
+
+        if (shop==null||shop.getShopId()==null){
+            return new ShopExecution(ShopStateEnum.NULL_SHOP);
+        }else{
+            try {
+                //1判断是否需要处理图片
+                if (shopImg != null && filename != null && !"".equals(filename)) {
+                    Shop tempShop = shopDao.queryByShopId(shop.getShopId());
+                    if (tempShop.getShopImg() != null) {
+                        ImageUtil.deleteFileOrPath(tempShop.getShopImg());
+                    }
+                    addShopImg(shop, shopImg, filename);
+                }
+                //2.更新店铺信息
+                shop.setLastEditTime(new Date());
+                int effectedNum = shopDao.updateShop(shop);
+                if (effectedNum <= 0) {
+                    return new ShopExecution(ShopStateEnum.INNER_ERROR);
+                } else {
+                    shop = shopDao.queryByShopId(shop.getShopId());
+                    return new ShopExecution(ShopStateEnum.SUCCESS, shop);
+                }
+            }catch (Exception e) {
+                //抛出更新错误的异常
+                throw new ShopOperationException("modifyShop error"+e.getMessage());
+            }
+        }
+    }
+
     /**
      * 添加店铺
      * @param shop 店铺
@@ -82,43 +133,5 @@ public class ShopServiceImpl implements ShopService{
         String shopImgAddr= ImageUtil.generateThumbnail(shopImgInputStream,filename,dest);
         shop.setShopImg(shopImgAddr);
     }
-
-    /**
-     * 把File转化为CommonsMultipartFile
-     */
-    /*public FileItem createFileItem(File file) {
-        //DiskFileItemFactory()：构造一个配置好的该类的实例
-        //第一个参数threshold(阈值)：以字节为单位.在该阈值之下的item会被存储在内存中，在该阈值之上的item会被当做文件存储
-        //第二个参数data repository：将在其中创建文件的目录.用于配置在创建文件项目时，当文件项目大于临界值时使用的临时文件夹，默认采用系统默认的临时文件路径
-        FileItemFactory factory = new DiskFileItemFactory(16, null);
-        //fieldName：表单字段的名称；第二个参数 ContentType；第三个参数isFormField；第四个：文件名
-        FileItem item = factory.createItem(null, "text/plain", true, file.getName());
-        int bytesRead = 0;
-        byte[] buffer = new byte[8192];
-        FileInputStream fis = null;
-        OutputStream os = null;
-        try {
-            fis = new FileInputStream(file);
-            os = item.getOutputStream();
-            while((bytesRead = fis.read(buffer, 0, 8192)) != -1) {
-                //从buffer中得到数据进行写操作
-                os.write(buffer, 0, bytesRead);
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if(os != null) {
-                    os.close();
-                }
-                if(fis != null) {
-                    fis.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return item;
-    }*/
 
 }
