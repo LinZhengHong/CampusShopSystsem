@@ -14,6 +14,15 @@ public interface ShopService {
 
 
     /**
+     *根据shopCondition分页返回相应店铺列表数据
+     * @param shopCondition
+     * @param pageIndex 这里为啥不是rowIndex尼，因为前端只认页数，而dao层只认函数，所以编写一个转换工具类PageCalculator
+     * @param pageSize
+     * @return
+     */
+    public ShopExecution getShopList(Shop shopCondition,int pageIndex,int pageSize);
+
+    /**
      * 根据shopId查询店铺
      * @param shopId
      * @return shop

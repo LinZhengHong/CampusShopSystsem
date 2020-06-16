@@ -22,6 +22,22 @@ public class ShopServiceTest extends BaseTest {
     @Autowired
     private ShopService shopService;
 
+
+    /**
+     * 测试分页查询返回的店铺列表
+     */
+    @Test
+    public void testGetShopList(){
+        Shop shopCondition=new Shop();
+        ShopCategory shopCategory=new ShopCategory();
+        shopCategory.setShopCategoryId(1L);
+        shopCondition.setShopCategory(shopCategory);
+        ShopExecution shopExecution=shopService.getShopList(shopCondition,1,2);
+        System.out.println("店铺列表数"+shopExecution.getShopList().size());
+        System.out.println("店铺总数:"+shopExecution.getCount());
+    }
+
+
     /**
      * 测试更新店铺信息以及图片的处理
      * @throws ShopOperationException

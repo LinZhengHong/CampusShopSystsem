@@ -46,6 +46,55 @@ public class ShopManagementController {
     private AreaService areaService;
 
 
+    @RequestMapping(value = "/getshopmanagementinfo",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getShopManagementInfo(HttpServletRequest request){
+        Map<String,Object> modelMap=new HashMap<String,Object>();
+        long shopId=HttpServletRequestUtil.getLong(request,"shopId");
+        if(shopId<=0){
+            Object currentShopObj=request.getSession().getAttribute("currentShop");
+            if (currentShopObj==null){
+                modelMap.put("redirect",true);
+                modelMap.put("url","/shop/shoplist");
+            }else {
+                Shop currentShop=(Shop) currentShopObj;
+                modelMap.put("redirect",false);
+                modelMap.put("shopId",currentShop.getShopId());
+            }
+        }else{
+            Shop currentShop=new Shop();
+            currentShop.setShopId(shopId);
+            request.getSession().setAttribute("currentShop",currentShop);
+            modelMap.put("redirect",false);
+        }
+        return modelMap;
+    }
+
+
+    @RequestMapping(value = "/getshoplist",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getShopList(HttpServletRequest request){
+        Map<String,Object> modelMap=new HashMap<>();
+        PersonInfo user=new PersonInfo();
+        user.setUserId(1L);
+        user.setName("test");
+        request.getSession().setAttribute("user",user);
+        user=(PersonInfo) request.getSession().getAttribute("user");
+        try{
+            Shop shopCondition=new Shop();
+            shopCondition.setOwner(user);
+            ShopExecution shopExecution = shopService.getShopList(shopCondition,0,100);
+            modelMap.put("shopList",shopExecution.getShopList());
+            modelMap.put("user",user);
+            modelMap.put("success",true);
+        }catch (Exception e){
+            modelMap.put("success",false);
+            modelMap.put("errMsg",e.getMessage());
+        }
+        return modelMap;
+    }
+
+
     @RequestMapping(value = "/getshopbyid",method = RequestMethod.GET)
     @ResponseBody
     private Map<String,Object> getShopById(HttpServletRequest request){
@@ -133,15 +182,26 @@ public class ShopManagementController {
         }
         //2 注册店铺、
         if (shop != null && shopImg != null) {
-            PersonInfo owner = new PersonInfo();
-            //Sessiontodo
-            owner.setUserId(1L);
+            //通过用户登录，把用户名信息存储在session,key设置为user
+            PersonInfo owner=(PersonInfo) request.getSession().getAttribute("user");
+            /*PersonInfo owner = new PersonInfo();
+            owner.setUserId(1L);*/
             shop.setOwner(owner);
             ShopExecution shopExecution = null;
             try {
                 shopExecution = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
                 if (shopExecution.getState() == ShopStateEnum.CHECK.getState()) {
                     modelMap.put("success", true);
+                    //该用户可以操作的店铺列表
+                    @SuppressWarnings("unchecked")
+                    List<Shop> shopList=(List<Shop>) request.getSession().getAttribute("shopList");
+                    //判断该用户是否初次注册店铺
+                    if(shopList==null||shopList.size()==0){
+                        //初次注册则新建一个新的店铺列表
+                        shopList=new ArrayList<Shop>();
+                    }
+                    shopList.add(shopExecution.getShop());
+                    request.getSession().setAttribute("shopList",shopList);
                 } else {
                     modelMap.put("success", false);
                     modelMap.put("errMsg", shopExecution.getStateInfo());
@@ -163,7 +223,7 @@ public class ShopManagementController {
     }
 
     /**
-     * 更改店铺
+     * 更改店铺的信息
      * @param request r
      * @return madelMap
      */
@@ -195,13 +255,15 @@ public class ShopManagementController {
             MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
             shopImg = (CommonsMultipartFile) multipartHttpServletRequest.getFile("shopImg");
         }
+        //获取不到shopId
+        System.out.println(shop+""+shop.getShopId());
         //2 修改店铺信息
         if (shop != null && shop.getShopId()!=null) {
             //session获取user
-            PersonInfo owner=new PersonInfo();
+            /*PersonInfo owner=new PersonInfo();*/
             /*PersonInfo owner =(PersonInfo) request.getSession().getServletContext("user");*/
-            owner.setUserId(1L);
-            shop.setOwner(owner);
+            /*owner.setUserId(1L);
+            shop.setOwner(owner);*/
             ShopExecution shopExecution = null;
             try {
                 //如果上传图片为空

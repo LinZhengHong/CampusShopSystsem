@@ -2,6 +2,9 @@ package com.linzhenghong.o2o.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author LinZhenHong
+ */
 public class HttpServletRequestUtil {
 
     public static int getInt(HttpServletRequest request,String key){

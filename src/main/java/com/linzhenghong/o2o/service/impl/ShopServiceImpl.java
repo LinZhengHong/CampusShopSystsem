@@ -7,6 +7,7 @@ import com.linzhenghong.o2o.enums.ShopStateEnum;
 import com.linzhenghong.o2o.exception.ShopOperationException;
 import com.linzhenghong.o2o.service.ShopService;
 import com.linzhenghong.o2o.util.ImageUtil;
+import com.linzhenghong.o2o.util.PageCalculator;
 import com.linzhenghong.o2o.util.PathUtil;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.*;
 import java.util.Date;
+import java.util.List;
 
 /**店铺实现类
  * @author LinZhenHong
@@ -30,6 +32,30 @@ public class ShopServiceImpl implements ShopService{
 
 
     /**
+     * 根据shopCondition分页返回相应店铺列表数据
+     *
+     * @param shopCondition
+     * @param pageIndex     这里为啥不是rowIndex尼，因为前端只认页数，而dao层只认函数，所以编写一个转换工具类PageCalculator
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public ShopExecution getShopList(Shop shopCondition, int pageIndex, int pageSize) {
+        int rowIndex= PageCalculator.calculateRowIndex(pageIndex,pageSize);
+        List<Shop> shopList=shopDao.queryShopList(shopCondition,rowIndex,pageSize);
+        int count=shopDao.queryShopCount(shopCondition);
+        ShopExecution shopExecution=new ShopExecution();
+        if (shopCondition!=null){
+            shopExecution.setShopList(shopList);
+            shopExecution.setCount(count);
+        }else{
+            //shopCondition为空，则返回错误的状态
+            shopExecution.setState(ShopStateEnum.INNER_ERROR.getState());
+        }
+        return shopExecution;
+    }
+
+    /**
      * 根据shopId查询店铺
      *
      * @param shopId
@@ -37,7 +63,7 @@ public class ShopServiceImpl implements ShopService{
      */
     @Override
     public Shop getByShopId(long shopId) {
-        return null;
+        return shopDao.queryByShopId(shopId);
     }
 
     /**

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 验证码工具类
+ * @author LinZhenHong
  */
 public class CodeUtil {
     public static boolean checkVerifyCode(HttpServletRequest request){
