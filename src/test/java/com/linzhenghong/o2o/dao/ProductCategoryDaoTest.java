@@ -5,6 +5,8 @@ import com.linzhenghong.o2o.entity.ProductCategory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,4 +23,24 @@ public class ProductCategoryDaoTest extends BaseTest {
         System.out.println("该店铺自定义类别数为："+productCategories.size());
     }
 
+    @Test
+    public void testBatchInsertProductCategory() {
+        ProductCategory productCategory1 = new ProductCategory();
+        productCategory1.setProductCategoryName("店铺商品类别4");
+        productCategory1.setPriority(1);
+        productCategory1.setCreateTime(new Date());
+        productCategory1.setShopId(1L);
+
+        ProductCategory productCategory2 = new ProductCategory();
+        productCategory2.setProductCategoryName("店铺商品类别5");
+        productCategory2.setPriority(2);
+        productCategory2.setCreateTime(new Date());
+        productCategory2.setShopId(1L);
+
+        List<ProductCategory> productCategories = new ArrayList<ProductCategory>();
+        productCategories.add(productCategory1);
+        productCategories.add(productCategory2);
+        int effectedNum = productCategoryDao.batchInsertProductCategory(productCategories);
+        System.out.println(effectedNum == 2);
+    }
 }

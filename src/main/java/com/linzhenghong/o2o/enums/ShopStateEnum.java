@@ -1,5 +1,9 @@
 package com.linzhenghong.o2o.enums;
 
+/**
+ * @author LinZhenHong
+ */
+
 public enum ShopStateEnum {
     /**
      *枚举常量

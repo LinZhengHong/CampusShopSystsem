@@ -8,4 +8,17 @@
         select product_category_id,product_category_name,priority,create_time,shop_id from tb_product_category where shop_id=#{shopId}
         ORDER BY priority DESC
     </select>
+
+    <insert id="batchInsertProductCategory" parameterType="list">
+        insert into tb_product_category(product_category_name,priority,create_time,shop_id)
+        values
+        <foreach collection="list" item="productCategory" index="index" separator=",">
+            (
+                #{productCategory.productCategoryName},
+                #{productCategory.priority},
+                #{productCategory.createTime},
+                #{productCategory.shopId}
+            )
+        </foreach>
+    </insert>
 </mapper>

@@ -1,6 +1,8 @@
 package com.linzhenghong.o2o.service;
 
+import com.linzhenghong.o2o.dto.ProductCategoryExecution;
 import com.linzhenghong.o2o.entity.ProductCategory;
+import com.linzhenghong.o2o.exception.ProductCategoryOperationException;
 
 import java.util.List;
 
@@ -15,5 +17,14 @@ public interface ProductCategoryService {
      * @return
      */
     List<ProductCategory> getProductCategoryList(long shopId);
+
+
+    /**
+     * 批量添加商品类别
+     * @param productCategoryList
+     * @return
+     * @throws ProductCategoryOperationException
+     */
+    ProductCategoryExecution batchAddProductCategory(List<ProductCategory> productCategoryList) throws ProductCategoryOperationException;
 
 }
