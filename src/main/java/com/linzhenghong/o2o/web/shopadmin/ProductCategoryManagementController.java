@@ -6,8 +6,7 @@ import com.linzhenghong.o2o.entity.ProductCategory;
 import com.linzhenghong.o2o.entity.Shop;
 import com.linzhenghong.o2o.enums.ProductCategoryStateEnum;
 import com.linzhenghong.o2o.service.ProductCategoryService;
-import com.linzhenghong.o2o.service.impl.ProductCategoryServiceImpl;
-import javafx.beans.binding.ObjectBinding;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
