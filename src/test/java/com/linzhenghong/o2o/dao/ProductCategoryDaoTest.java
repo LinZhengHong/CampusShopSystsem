@@ -43,4 +43,13 @@ public class ProductCategoryDaoTest extends BaseTest {
         int effectedNum = productCategoryDao.batchInsertProductCategory(productCategories);
         System.out.println(effectedNum == 2);
     }
+
+    @Test
+    public void testDeleteProductCategory(){
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setShopId(1L);
+        productCategory.setProductCategoryId(8L);
+        int effectedNum=productCategoryDao.deleteProductCategory(productCategory.getProductCategoryId(),productCategory.getShopId());
+        System.out.println(effectedNum==1);
+    }
 }
