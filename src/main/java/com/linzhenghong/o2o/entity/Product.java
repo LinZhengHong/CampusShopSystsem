@@ -26,6 +26,11 @@ public class Product {
     private String productDesc;
 
     /**
+     * 简略图
+     */
+    private String imgAddr;
+
+    /**
      * 现有价格
      */
     private String normalPrice;
@@ -34,6 +39,11 @@ public class Product {
      * 促销价格
      */
     private String promotionPrice;
+
+    /**
+     * 权重
+     */
+    private Integer priority;
 
     /**
      * 创建时间
@@ -59,6 +69,11 @@ public class Product {
      * 商品所在的店铺
      */
     private Shop shop;
+
+    /**
+     * 商品所在的类别
+     */
+    private ProductCategory productCategory;
 
     public Long getProductId() {
         return productId;
@@ -138,5 +153,29 @@ public class Product {
 
     public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    public String getImgAddr() {
+        return imgAddr;
+    }
+
+    public void setImgAddr(String imgAddr) {
+        this.imgAddr = imgAddr;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
     }
 }
