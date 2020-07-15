@@ -1,7 +1,5 @@
 package com.linzhenghong.o2o.web.shopadmin;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linzhenghong.o2o.dto.ImageHolder;
 import com.linzhenghong.o2o.dto.ProductExecution;
