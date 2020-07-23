@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linzhenghong.o2o.dao.ProductImgDao">
+
+
+    <insert id="batchInsertProductImg" parameterType="list">
+        <!--这里 右主外键冲突，外键关系涉及一个包含中心数据值的父表，以及一个具有指向其父表的相同值的子表。在子表中指定了外键子句。
+        如果父表中没有匹配的候选键值，它将拒绝任何试图在子表中创建外键值的插入或更新操作。
+        -->
+        insert into tb_product_img(img_addr,img_desc,priority,create_time,product_id)
+        values
+        <foreach collection="list" item="productImg" index="index" separator=",">
+            (
+            #{productImg.imgAddr},
+            #{productImg.imgDesc},
+            #{productImg.priority},
+            #{productImg.createTime},
+            #{productImg.productId}
+            )
+        </foreach>
+    </insert>
+    <delete id="deleteProductImgByProductId"></delete>
+    <select id="queryProductImgList" resultType="ProductImg"></select>
+</mapper>

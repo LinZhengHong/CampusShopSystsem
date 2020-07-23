@@ -65,7 +65,7 @@ public class ProductManagementController {
             if (multipartResolver.isMultipart(request)){
                 multipartHttpServletRequest=(MultipartHttpServletRequest) request;
                 //取出缩略图并构建ImageHolder对象
-                CommonsMultipartFile thumbnailFile=(CommonsMultipartFile) multipartHttpServletRequest.getFile("thunbnail");
+                CommonsMultipartFile thumbnailFile=(CommonsMultipartFile) multipartHttpServletRequest.getFile("thumbnail");
                 thumbnail=new ImageHolder(thumbnailFile.getOriginalFilename(),thumbnailFile.getInputStream());
                 //取出详情图列表并构建List<ImageHolder>列表对象，最多支持六张图片上传
                 for(int i=0;i<IMAGEMAXCOUNT;i++){
@@ -91,11 +91,15 @@ public class ProductManagementController {
         }
         try{
             //尝试获取前端传过来的表单string流并将其转换Product实体类
+
+            //在这里出现了一个坑，就是productStr传过来不能映射到product实体类，
+            // 解决方法就是在对应的实体类上添加@JsonIgnoreProperties(ignoreUnknown = true)
             product=mapper.readValue(productStr,Product.class);
 
         }catch (Exception e) {
             modelMap.put("success",false);
             modelMap.put("errMsg",e.toString());
+            e.printStackTrace();
             return modelMap;
         }
 
@@ -103,7 +107,7 @@ public class ProductManagementController {
         if (product!=null&&thumbnail!=null&&productImgList.size()>0){
             try{
                 //从session中获取当前店铺的Id并赋值给product,减少对前端数据的依赖
-                Shop currentShop=(Shop) request.getSession().getAttribute("currentSHop");
+                Shop currentShop=(Shop) request.getSession().getAttribute("currentShop");
                 Shop shop=new Shop();
                 shop.setShopId(currentShop.getShopId());
                 product.setShop(shop);

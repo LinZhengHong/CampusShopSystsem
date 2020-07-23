@@ -1,6 +1,8 @@
 package com.linzhenghong.o2o.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import java.util.List;
  * 商品信息
  * @author LinZhenHong
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
 
     /**
@@ -99,6 +102,14 @@ public class Product {
         this.productDesc = productDesc;
     }
 
+    public String getImgAddr() {
+        return imgAddr;
+    }
+
+    public void setImgAddr(String imgAddr) {
+        this.imgAddr = imgAddr;
+    }
+
     public String getNormalPrice() {
         return normalPrice;
     }
@@ -113,6 +124,14 @@ public class Product {
 
     public void setPromotionPrice(String promotionPrice) {
         this.promotionPrice = promotionPrice;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
     public Date getCreateTime() {
@@ -153,22 +172,6 @@ public class Product {
 
     public void setShop(Shop shop) {
         this.shop = shop;
-    }
-
-    public String getImgAddr() {
-        return imgAddr;
-    }
-
-    public void setImgAddr(String imgAddr) {
-        this.imgAddr = imgAddr;
-    }
-
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
     }
 
     public ProductCategory getProductCategory() {

@@ -1,11 +1,14 @@
 package com.linzhenghong.o2o.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
 /**
  * 商品类别
  * @author LinZhenHong
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductCategory {
     /**
      * 商品类别id
