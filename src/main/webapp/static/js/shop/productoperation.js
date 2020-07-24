@@ -30,9 +30,10 @@ $(function () {
                     //获取原本的商品类别以及该店铺的所有商品类别列表
                     var optionHtml='';
                     var optionArr=data.productCategoryList;
+                    var optionSelected=product.productCategory.productCategoryId;
                     //生成前端的HTML商品类别列表，并默认选择编辑前的商品类别
                     optionArr.map(function (item,index) {
-                        var isSelect=optionSelected===item.productCategoryId?'selected':'';
+                        var isSelect = optionSelected === item.productCategoryId ? 'selected':'';
                         optionHtml+='<option value="'
                                   +item.productCategoryId
                                   +'"'

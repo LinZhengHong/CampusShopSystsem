@@ -16,4 +16,28 @@ public interface ProductDao {
      * @return Integer
      */
     int insertProduct(Product product);
+
+    /**
+     * 通过productId查询唯一的衫品信息
+     * @param productId
+     * @return
+     */
+    Product queryProductById(long productId);
+
+    /**
+     * 更新商品信息
+     * @param product
+     * @return
+     */
+    int updateProduct(Product product);
+
+    /**
+     * 删除指定商品下的所有详情图
+     * @param productId
+     * @return
+     */
+    int deleteProductImgByProductId(long productId);
+
+
+
 }

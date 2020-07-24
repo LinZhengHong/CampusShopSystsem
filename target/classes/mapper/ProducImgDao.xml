@@ -21,6 +21,23 @@
             )
         </foreach>
     </insert>
-    <delete id="deleteProductImgByProductId"></delete>
-    <select id="queryProductImgList" resultType="ProductImg"></select>
+
+    <select id="queryProductImgList" resultType="ProductImg">
+        select product_img_id,
+        img_addr,
+        img_desc,
+        priority,
+        create_time,
+        product_id
+        from tb_product_img
+        where product_id=#{productId}
+        order by
+        product_img_id ASC
+    </select>
+
+    <delete id="deleteProductImgByProductId">
+        DELETE FROM
+        tb_product_img
+        where product_id=#{productId}
+    </delete>
 </mapper>

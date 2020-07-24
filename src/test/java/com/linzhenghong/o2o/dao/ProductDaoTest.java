@@ -3,13 +3,16 @@ package com.linzhenghong.o2o.dao;
 import com.linzhenghong.o2o.BaseTest;
 import com.linzhenghong.o2o.entity.Product;
 import com.linzhenghong.o2o.entity.ProductCategory;
+import com.linzhenghong.o2o.entity.ProductImg;
 import com.linzhenghong.o2o.entity.Shop;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProductDaoTest extends BaseTest {
@@ -76,7 +79,55 @@ public class ProductDaoTest extends BaseTest {
         effectedNum=productDao.insertProduct(product3);
         System.out.println(effectedNum==1);
 
+    }
+
+    @Test
+    public void testQueryProductByProductId() throws Exception{
+        long productId=1;
+        //初始化两个商品详情图实例作为productId为1的商品下的详情图片
+        //批量插入到商品详情图片表中
+        ProductImg productImg1=new ProductImg();
+        productImg1.setImgAddr("图片1");
+        productImg1.setImgDesc("测试图片1");
+        productImg1.setPriority(1);
+        productImg1.setCreateTime(new Date());
+        productImg1.setProductId(productId);
+
+        ProductImg productImg2=new ProductImg();
+        productImg2.setImgAddr("图片2");
+        productImg2.setPriority(1);
+        productImg2.setCreateTime(new Date());
+        productImg2.setProductId(productId);
+
+        List<ProductImg> productImgList=new ArrayList<>();
+        productImgList.add(productImg1);
+        productImgList.add(productImg2);
 
 
+        int effectedNum=productImgDao.batchInsertProductImg(productImgList);
+        //查询productId为1的商品信息并校验返回的详情图实例列表size是否为2
+        Product product=productDao.queryProductById(productId);
+        System.out.println(product.getProductImgList().size()==2);
+
+        //删除新增的这两个商品详情图实例
+        effectedNum=productImgDao.deleteProductImgByProductId(productId);
+        System.out.println(effectedNum==2);
+    }
+
+    @Test
+    public void testDUpdateProduct() throws Exception{
+        Product product=new Product();
+        ProductCategory productCategory=new ProductCategory();
+        Shop shop=new Shop();
+        shop.setShopId(1L);
+        productCategory.setProductCategoryId(2L);
+        product.setProductId(1L);
+        product.setProductName("第二个产品");
+        product.setProductCategory(productCategory);
+        product.setShop(shop);
+
+        //修改productId为1的商品的名称
+        int effectedNum=productDao.updateProduct(product);
+        System.out.println(effectedNum==1);
     }
 }

@@ -30,9 +30,10 @@ $(function () {
                     //获取原本的商品类别以及该店铺的所有商品类别列表
                     var optionHtml='';
                     var optionArr=data.productCategoryList;
+                    var optionSelected=product.productCategory.productCategoryId;
                     //生成前端的HTML商品类别列表，并默认选择编辑前的商品类别
                     optionArr.map(function (item,index) {
-                        var isSelect=optionSelected===item.productCategoryId?'selected':'';
+                        var isSelect = optionSelected === item.productCategoryId ? 'selected':'';
                         optionHtml+='<option value="'
                                   +item.productCategoryId
                                   +'"'
@@ -101,7 +102,7 @@ $(function () {
         $('#detailImg').map(function (index,item) {
             //判断该控件是否已选择了文件
 
-            //在这里卡了好久，不知道为啥报错。。。。。。。。。。。。。。。
+            //在这里卡了很久，原来是#detailImg写错了#detail-img,啊啊啊啊！
             if ($('#detailImg')[index].files.length > 0){
                 //将第i个文件流赋值给key为productImg的表单键值对里
                 formData.append('productImg'+index,$('#detailImg')[index].files[0]);
