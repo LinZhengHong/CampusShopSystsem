@@ -21,4 +21,9 @@
     <typeAliases>
         <package name="com.linzhenghong.o2o.dao"/>
     </typeAliases>
+
+    <!--配置主从库拦截器-->
+    <plugins>
+        <plugin interceptor="com.linzhenghong.o2o.interceptor.DynamicDataSourceInterceptor"></plugin>
+    </plugins>
 </configuration>

@@ -29,6 +29,35 @@
         <property name="acquireRetryAttempts" value="2" />
     </bean>
 
+    <!--<bean id="master" parent="dataSource">
+        &lt;!&ndash; 配置连接池属性 &ndash;&gt;
+        <property name="driverClass" value="${jdbc.driver}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="user" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+    <bean id="slave" parent="dataSource">
+        &lt;!&ndash; 配置连接池属性 &ndash;&gt;
+        <property name="driverClass" value="${jdbc.driver}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="user" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+    &lt;!&ndash;配置动态数据源，这儿targetDateSource就是路由数据源所对应的名称&ndash;&gt;
+    <bean id="dynamicDataSource" class="com.linzhenghong.o2o.split.DynamicDataSource">
+        <property name="targetDataSources">
+            <map>
+                <entry value-ref="master" key="master"></entry>
+                <entry value-ref="slave" key="slave"></entry>
+            </map>
+        </property>
+    </bean>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+        <property name="targetDataSource">
+            <ref bean="dynamicDataSource"/>
+        </property>
+    </bean>-->
+
     <!-- 3.配置SqlSessionFactory对象 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 注入数据库连接池 -->
