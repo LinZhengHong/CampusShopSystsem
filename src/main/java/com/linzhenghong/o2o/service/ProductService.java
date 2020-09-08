@@ -14,6 +14,16 @@ public interface ProductService {
 
 
     /**
+     *
+     * @param productCondition
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    ProductExecution getProductList(Product productCondition,int pageIndex,int pageSize);
+
+
+    /**
      * 添加商品信息以及图片处理
      * @param product
      * @param thumbnail
