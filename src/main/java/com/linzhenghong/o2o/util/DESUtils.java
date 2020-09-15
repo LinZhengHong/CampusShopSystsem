@@ -1,5 +1,6 @@
 package com.linzhenghong.o2o.util;
 
+
 import java.security.Key;
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -20,9 +21,13 @@ public class DESUtils {
 
 	static {
 		try {
+			//生成DES算法
 			KeyGenerator generator = KeyGenerator.getInstance(ALGORITHM);
+			//运用sha1安全策略
 			SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
+			//设置上密钥种子
 			secureRandom.setSeed(KEY_STR.getBytes());
+			//生成密钥对象
 			generator.init(secureRandom);
 			key = generator.generateKey();
 			generator = null;
@@ -31,9 +36,14 @@ public class DESUtils {
 		}
 	}
 
+	/**
+	 * 获取解密之后的信息
+	 * @param str
+	 * @return
+	 */
 	public static String getEncryptString(String str) {
 		//基于BASE64编码，接收byte[]并转换成String（采用JDK8的Base64）
-		final Base64.Encoder base64encoder=Base64.getEncoder();
+		Base64.Encoder base64encoder=Base64.getEncoder();
 		try {
 			//按UTF-8编码
 			byte[] bytes = str.getBytes(CHARSETNAME);
@@ -54,7 +64,7 @@ public class DESUtils {
 
 	public static String getDecryptString(String str) {
 		//基于BASE64解码，接收byte[]并转换成String
-		final Base64.Decoder base64decoder=Base64.getDecoder();
+		Base64.Decoder base64decoder=Base64.getDecoder();
 		try {
 			//按UTF-8编码
 			byte[] bytes = base64decoder.decode(str);
@@ -72,10 +82,11 @@ public class DESUtils {
 	}
 	
 	public static void main(String[] args) {
+		//要加密的用户和密码，运行并复制粘贴到替换jdbc.properties配置文件对应的用户密码
 		System.out.println(getEncryptString("root"));
-		System.out.println(getEncryptString("123456"));
+		System.out.println(getEncryptString("root"));
 		System.out.println(getDecryptString("WnplV/ietfQ="));
-		System.out.println(getDecryptString("QAHlVoUc49w="));
+		System.out.println(getDecryptString("WnplV/ietfQ="));
 	}
 
 }

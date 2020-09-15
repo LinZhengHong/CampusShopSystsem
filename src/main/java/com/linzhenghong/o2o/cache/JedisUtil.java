@@ -94,7 +94,7 @@ public class JedisUtil {
 
     //============================keys=============================
 
-    class Keys {
+    public class Keys {
         public Keys(JedisUtil jedisUtil) {
         }
 

@@ -41,7 +41,7 @@ $(function () {
 
     getSearchDivData();
 
-    //无限滚动
+    //无限滚动(SUI JS有个大坑！！！！)
     function addItems(pageSize,pageIndex) {
         //生成新条目HTML
         var url=listUrl+'?'
