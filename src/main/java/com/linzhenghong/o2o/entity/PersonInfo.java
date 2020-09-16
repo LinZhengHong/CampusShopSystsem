@@ -122,4 +122,5 @@ public class PersonInfo {
     public void setLastEditTime(Date lastEditTime) {
         this.lastEditTime = lastEditTime;
     }
+
 }
