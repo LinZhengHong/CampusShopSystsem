@@ -99,7 +99,7 @@
         limit #{pageIndex},#{pageSize}
     </select>
     <select id="queryProductCount" resultType="int">
-        select count (1) from tb_product
+        select count(1) from tb_product
         <where>
             <if test="productCondition.shop!=null
                 and productCondition.shop.shopId!=null">
@@ -133,12 +133,18 @@
         and shop_id=#{shop.shopId}
     </update>
 
-    <delete id="deleteProductImgByProductId">
+    <update id="updateProductCategoryToNull" parameterType="long">
+        update tb_product
+        set product_category_id=null
+        where product_category_id=
+        #{productCategoryId}
+    </update>
+
+    <delete id="deleteProduct" parameterType="long">
         DELETE from
         tb_product
         where product_id=#{productId}
-        and
-        shop_id=#{shopId}
+        and shop_id=#{shopId}
     </delete>
 
 </mapper>

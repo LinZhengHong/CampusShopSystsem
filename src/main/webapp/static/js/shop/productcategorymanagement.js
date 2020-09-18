@@ -5,8 +5,7 @@ $(function (message) {
     getList();
     function getList() {
         $.getJSON(
-            listUrl,
-            function (data) {
+            listUrl, function (data) {
                 if (data.success){
                     var dataList=data.data;
                     $('#tb').html('');

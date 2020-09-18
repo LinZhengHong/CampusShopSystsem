@@ -41,7 +41,7 @@ $(function () {
 
     getSearchDivData();
 
-    //无限滚动
+    //无限滚动(SUI JS有个大坑！！！！)
     function addItems(pageSize,pageIndex) {
         //生成新条目HTML
         var url=listUrl+'?'
@@ -60,18 +60,18 @@ $(function () {
                     //注意这里的shopId是加双引号的，如果出错要检查这里
                     html+=''+'<div class="card mb-3 mt-4" style="max-width: 540px;" data-shop-id="'+item.shopId+'">'
                         +'<div class="row no-gutters">'
-                            +'<div class="col-md-4">'
-                                +'<img src="'+item.shopImg+'" class="card-img" alt="...">'
-                            +'</div>'
-                            +'<div class="col-md-8">'
-                                +'<div class="card-body">'
-                                    +'<h5 class="card-title">'+item.shopName+'</h5>'
-                                    +'<p class="card-text">'+item.shopDesc+'</p>'
-                                    +'<p class="card-text"><small class="text-muted">'+new Date(item.lastEditTime).Format("yyyy-MM-dd")+'</small><a class="ml-5" href="#">点击查看</a></p>'
-                                +'</div>'
-                            +'</div>'
+                        +'<div class="col-md-4">'
+                        +'<img src="'+item.shopImg+'" class="card-img" alt="...">'
                         +'</div>'
-                    +'</div>'
+                        +'<div class="col-md-8">'
+                        +'<div class="card-body">'
+                        +'<h5 class="card-title">'+item.shopName+'</h5>'
+                        +'<p class="card-text">'+item.shopDesc+'</p>'
+                        +'<p class="card-text"><small class="text-muted">'+new Date(item.lastEditTime).Format("yyyy-MM-dd")+'</small><a class="ml-5" href="#">点击查看</a></p>'
+                        +'</div>'
+                        +'</div>'
+                        +'</div>'
+                        +'</div>'
                 });
                 $('.list-div').append(html);
                 var total=$('.list-div .card').length;

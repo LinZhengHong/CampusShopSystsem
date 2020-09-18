@@ -34,7 +34,7 @@ public interface ProductDao {
     int insertProduct(Product product);
 
     /**
-     * 通过productId查询唯一的衫品信息
+     * 通过productId查询唯一的商品信息
      * @param productId
      * @return
      */
@@ -47,12 +47,22 @@ public interface ProductDao {
      */
     int updateProduct(Product product);
 
+
     /**
-     * 删除指定商品下的所有详情图
-     * @param productId
+     *删除商品类别之前，将商品类别ID设置为空
+     * @param productCategoryId
      * @return
      */
-    int deleteProductImgByProductId(long productId);
+    int updateProductCategoryToNull(long productCategoryId);
+
+
+    /**
+     * 删除商品
+     * @param productId
+     * @param shopId
+     * @return
+     */
+    int deleteProduct(@Param("productId") long productId,@Param("shopId") long shopId);
 
 
 

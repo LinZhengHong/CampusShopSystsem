@@ -15,59 +15,60 @@
 </head>
 <body>
 
-   <div class="container">
-       <form>
-           <div class="form-group">
-               <label for="shop-name" class="bmd-label-floating">商铺名称</label>
-               <input type="text" class="form-control" id="shop-name">
-           </div>
-           <div class="form-group">
-               <label for="shop-category" class="bmd-label-floating">商铺分类</label>
-               <select class="form-control  form-control-sm" id="shop-category">
-               </select>
-           </div>
-           <div class="form-group">
-               <label for="area" class="bmd-label-floating">所属区域</label>
-               <select class="form-control  form-control-sm" id="area">
-               </select>
-           </div>
-           <div class="form-group">
-               <label for="shop-addr" class="bmd-label-floating">详细地址</label>
-               <input type="text" class="form-control" id="shop-addr">
-           </div>
-           <div class="form-group">
-               <label for="shop-phone" class="bmd-label-floating">联系电话</label>
-               <input type="text" class="form-control" id="shop-phone">
-           </div>
-           <div class="form-group">
-               <label for="shop-img" class="bmd-label-floating">缩略图</label>
-               <input type="file" class="form-control-file" id="shop-img">
-           </div>
-           <div class="form-group">
-               <label for="shop-desc" class="bmd-label-floating">店铺简介</label>
-               <textarea class="form-control" id="shop-desc" rows="3"></textarea>
-           </div>
-           <div class="form-group">
-               <label for="j_captcha" class="bmd-label-floating">验证码</label>
-               <div class="d-flex">
-                   <input type="text" class="form-control" id="j_captcha" style="width: 12rem">
-                   <img id="captcha_img" alt="点击更换" title="点击更换" onclick="changeVerifyCode(this)" src="../Kaptcha"/>
-               </div>
+<div class="container">
+    <h1 class="text-center text-primary">商铺注册</h1>
+    <form>
+        <div class="form-group">
+            <label for="shop-name" class="bmd-label-floating">商铺名称</label>
+            <input type="text" class="form-control" id="shop-name">
+        </div>
+        <div class="form-group">
+            <label for="shop-category" class="bmd-label-floating">商铺分类</label>
+            <select class="form-control  form-control-sm" id="shop-category">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="area" class="bmd-label-floating">所属区域</label>
+            <select class="form-control  form-control-sm" id="area">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="shop-addr" class="bmd-label-floating">详细地址</label>
+            <input type="text" class="form-control" id="shop-addr">
+        </div>
+        <div class="form-group">
+            <label for="shop-phone" class="bmd-label-floating">联系电话</label>
+            <input type="text" class="form-control" id="shop-phone">
+        </div>
+        <div class="form-group">
+            <label for="shop-img" class="bmd-label-floating">缩略图</label>
+            <input type="file" class="form-control-file" id="shop-img">
+        </div>
+        <div class="form-group">
+            <label for="shop-desc" class="bmd-label-floating">店铺简介</label>
+            <textarea class="form-control" id="shop-desc" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="j_captcha" class="bmd-label-floating">验证码</label>
+            <div class="d-flex">
+                <input type="text" class="form-control" id="j_captcha" style="width: 12rem">
+                <img id="captcha_img" alt="点击更换" title="点击更换" onclick="changeVerifyCode(this)" src="../Kaptcha"/>
+            </div>
 
-           </div>
-           <a href="#" type="submit" class="btn btn-default">取消</a>
-           <a href="#" type="submit" class="btn btn-primary btn-raised" id="submit">提交</a>
-       </form>
-   </div>
+        </div>
+        <a href="#" type="submit" class="btn btn-default">取消</a>
+        <a href="#" type="submit" class="btn btn-primary btn-raised" id="submit">提交</a>
+    </form>
+</div>
 
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/o2o/static/js/shop/shopoperation.js" charset="utf-8"></script>
-   <script type="text/javascript" src="/o2o/static/js/common/common.js" charset="utf-8"></script>
-    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js" charset="utf-8"></script>
+<script type="text/javascript" src="/o2o/static/js/shop/shopoperation.js" charset="utf-8"></script>
+<script type="text/javascript" src="/o2o/static/js/common/common.js" charset="utf-8"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 </body>
 </html>

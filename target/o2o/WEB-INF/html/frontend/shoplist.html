@@ -14,61 +14,61 @@
     <title>商铺列表</title>
 </head>
 <body>
-    <div class="container">
-        <div>
-            <h3 class="text-primary text-center">商铺列表</h3>
-            <p><a href="#">返回</a></p>
+<div class="container">
+    <div>
+        <h3 class="text-primary text-center">商铺列表</h3>
+        <p><a href="#">返回</a></p>
+    </div>
+    <div class="input-group mb-3">
+        <input type="text" id="search" class="form-control" placeholder="输入关键字" aria-label="输入关键字" aria-describedby="button-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2">搜索</button>
         </div>
-        <div class="input-group mb-3">
-            <input type="text" id="search" class="form-control" placeholder="输入关键字" aria-label="输入关键字" aria-describedby="button-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">搜索</button>
-            </div>
-        </div>
-        <div class="infinite-scroll infinite-scroll-bottom">
-            <!--导航栏-->
-            <div id="shopList-search-div"></div>
-            <!--下拉-->
-            <select class="custom-select" id="area-search">
-                <!--<option selected>全部街道</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>-->
-            </select>
-            <div class="list-div shop-list">
-                <!--<div class="card mb-3 mt-4" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="..." class="card-img" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">小黄人商店</h5>
-                                <p class="card-text">不接受预订，请到店里直接消费</p>
-                                <p class="card-text"><small class="text-muted">2020-09-06</small><a class="ml-5" href="#">点击查看</a></p>
-                            </div>
+    </div>
+    <div class="infinite-scroll infinite-scroll-bottom">
+        <!--导航栏-->
+        <div id="shopList-search-div"></div>
+        <!--下拉-->
+        <select class="custom-select" id="area-search">
+            <!--<option selected>全部街道</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>-->
+        </select>
+        <div class="list-div shop-list">
+            <!--<div class="card mb-3 mt-4" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="..." class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">小黄人商店</h5>
+                            <p class="card-text">不接受预订，请到店里直接消费</p>
+                            <p class="card-text"><small class="text-muted">2020-09-06</small><a class="ml-5" href="#">点击查看</a></p>
                         </div>
                     </div>
-                </div>-->
-            </div>
-            <div class="infinite-scroll-preloader">
-                <div class="preloader"></div>
-            </div>
+                </div>
+            </div>-->
         </div>
-        <!--侧边栏-->
-
+        <div class="infinite-scroll-preloader">
+            <div class="preloader"></div>
+        </div>
     </div>
+    <!--侧边栏-->
+
+</div>
 
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/o2o/static/js/sm.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/o2o/static/js/sm-extend.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/o2o/static/js/common/common.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/o2o/static/js/frontend/shoplist.js" charset="utf-8"></script>
-    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js" charset="utf-8"></script>
+<script type="text/javascript" src="/o2o/static/js/sm.js" charset="utf-8"></script>
+<script type="text/javascript" src="/o2o/static/js/sm-extend.js" charset="utf-8"></script>
+<script type="text/javascript" src="/o2o/static/js/common/common.js" charset="utf-8"></script>
+<script type="text/javascript" src="/o2o/static/js/frontend/shoplist.js" charset="utf-8"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 </body>
 </html>

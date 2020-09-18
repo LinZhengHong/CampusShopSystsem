@@ -1,6 +1,7 @@
 package com.linzhenghong.o2o.service.impl;
 
 import com.linzhenghong.o2o.dao.ProductCategoryDao;
+import com.linzhenghong.o2o.dao.ProductDao;
 import com.linzhenghong.o2o.dto.ProductCategoryExecution;
 import com.linzhenghong.o2o.entity.ProductCategory;
 import com.linzhenghong.o2o.enums.ProductCategoryStateEnum;
@@ -8,6 +9,7 @@ import com.linzhenghong.o2o.exception.ProductCategoryOperationException;
 import com.linzhenghong.o2o.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +21,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Autowired
     private ProductCategoryDao productCategoryDao;
+
+    @Autowired
+    private ProductDao productDao;
 
     /**
      * 查询指定某个店铺下的所有商品类别信息
@@ -65,7 +70,18 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
      * @throws ProductCategoryOperationException
      */
     @Override
+    @Transactional
     public ProductCategoryExecution deleteProductCategory(long productCategoryId, long shopId) throws ProductCategoryOperationException {
+        //解除tb_product里的商品与该productCategoryId的关联
+        try {
+            int effectedNum=productDao.updateProductCategoryToNull(productCategoryId);
+            if (effectedNum<0){
+                throw new ProductCategoryOperationException("商品类别更新失败");
+            }
+        }catch (Exception e){
+            throw new ProductCategoryOperationException("deleteProductCategory error:"+e.getMessage());
+        }
+        //删除该productCategory
         try {
             int effectedNum=productCategoryDao.deleteProductCategory(productCategoryId,shopId);
             if (effectedNum<=0){
