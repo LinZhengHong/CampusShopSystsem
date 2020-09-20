@@ -47,6 +47,8 @@ public class ShopListController {
         Map<String, Object> modelMap = new HashMap<>();
         //试着从前端请求中获取parentId
         long parentId = HttpServletRequestUtil.getLong(request, "parentId");
+        //在这里测试一下parentId
+        System.out.println(parentId);
         List<ShopCategory> shopCategoryList = null;
         if (parentId != -1) {
             //如果parentId存在，则取出该一级ShopCategory下的二级ShopCategory列表
@@ -54,6 +56,7 @@ public class ShopListController {
                 ShopCategory shopCategoryCondition = new ShopCategory();
                 ShopCategory parent = new ShopCategory();
                 parent.setShopCategoryId(parentId);
+                shopCategoryCondition.setParent(parent);
                 shopCategoryList = shopCategoryService.queryShopCategory(shopCategoryCondition);
             } catch (Exception e) {
                 modelMap.put("success", false);
@@ -71,6 +74,7 @@ public class ShopListController {
         modelMap.put("shopCategoryList", shopCategoryList);
         List<Area> areaList = null;
         try {
+            //获取区域列表信息
             areaList = areaService.getAreaList();
             modelMap.put("areaList", areaList);
             modelMap.put("success", true);
@@ -85,32 +89,28 @@ public class ShopListController {
     @RequestMapping(value = "/listshops",method =RequestMethod.GET)
     @ResponseBody
     private Map<String,Object> listShops(HttpServletRequest request){
-        Map<String,Object> modelMap=new HashMap<>();
-        //获取页码
-        int pageIndex=HttpServletRequestUtil.getInt(request,"pageIndex");
-        //获取一页需要的显示的数据条数
-        int pageSize=HttpServletRequestUtil.getInt(request,"pageSize");
-        //非空判断
-        if((pageIndex>-1)&&(pageSize>-1)){
-            //试着获取一级类别Id
-            long parentId=HttpServletRequestUtil.getLong(request,"parentId");
-            //试着获取特定二级类别Id
-            long shopCategoryId=HttpServletRequestUtil.getLong(request,"shopCategoryId");
-            //试着获取区域Id
-            int areaId=HttpServletRequestUtil.getInt(request,"areaId");
-            //试着获取模糊查询的名字
-            String shopName=HttpServletRequestUtil.getString(request,"shopName");
-            //获取组合之后的查询条件
-            Shop shopCondition=compactShopCondition4Search(parentId,shopCategoryId,areaId,shopName);
-            //根据查询条件和分页信息获取店铺列表，并返回总数
-            ShopExecution shopExecution=shopService.getShopList(shopCondition,pageIndex,pageSize);
-            modelMap.put("shopList",shopExecution.getShopList());
-            modelMap.put("count",shopExecution.getShopList());
-            modelMap.put("success",true);
-        }else {
-            modelMap.put("success",false);
-            modelMap.put("errMsg","empty pageSize or pageIndex");
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+        int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+        if ((pageIndex > -1) && (pageSize > -1)) {
+            long parentId = HttpServletRequestUtil.getLong(request, "parentId");
+            long shopCategoryId = HttpServletRequestUtil.getLong(request,
+                    "shopCategoryId");
+            int areaId = HttpServletRequestUtil.getInt(request, "areaId");
+            String shopName = HttpServletRequestUtil.getString(request,
+                    "shopName");
+            Shop shopCondition = compactShopCondition4Search(parentId,
+                    shopCategoryId, areaId, shopName);
+            ShopExecution se = shopService.getShopList(shopCondition,
+                    pageIndex, pageSize);
+            modelMap.put("shopList", se.getShopList());
+            modelMap.put("count", se.getCount());
+            modelMap.put("success", true);
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "empty pageSize or pageIndex");
         }
+
         return modelMap;
     }
 
@@ -125,8 +125,8 @@ public class ShopListController {
      */
     private Shop compactShopCondition4Search(long parentId, long shopCategoryId, int areaId, String shopName) {
         Shop shopCondition=new Shop();
-        if (parentId!=1L){
-            //查询某个一级ShopCategory下面的所有二级ShopCategory里卖弄的店铺列表
+        if (parentId!=-1L){
+            //查询某个一级ShopCategory下面的所有二级ShopCategory里的店铺列表
             ShopCategory childCategory=new ShopCategory();
             ShopCategory parentCategory=new ShopCategory();
             parentCategory.setShopCategoryId(parentId);
@@ -139,7 +139,8 @@ public class ShopListController {
             shopCategory.setShopCategoryId(shopCategoryId);
             shopCondition.setShopCategory(shopCategory);
         }
-        if (areaId!=-1L){
+        //long与int
+        if (areaId!=-1){
             //查询位于某个区域Id下面的店铺列表
             Area area=new Area();
             area.setAreaId(areaId);

@@ -1,74 +1,107 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Material Design for Bootstrap fonts and icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-
-    <!-- Material Design for Bootstrap CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-
-    <title>商铺列表</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商店列表</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="/o2o/static/css/frontend/shop/shoplist.css">
 </head>
 <body>
-<div class="container">
-    <div>
-        <h3 class="text-primary text-center">商铺列表</h3>
-        <p><a href="#">返回</a></p>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" id="search" class="form-control" placeholder="输入关键字" aria-label="输入关键字" aria-describedby="button-addon2">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">搜索</button>
-        </div>
-    </div>
-    <div class="infinite-scroll infinite-scroll-bottom">
-        <!--导航栏-->
-        <div id="shopList-search-div"></div>
-        <!--下拉-->
-        <select class="custom-select" id="area-search">
-            <!--<option selected>全部街道</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>-->
-        </select>
-        <div class="list-div shop-list">
-            <!--<div class="card mb-3 mt-4" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="..." class="card-img" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">小黄人商店</h5>
-                            <p class="card-text">不接受预订，请到店里直接消费</p>
-                            <p class="card-text"><small class="text-muted">2020-09-06</small><a class="ml-5" href="#">点击查看</a></p>
-                        </div>
-                    </div>
+<div class="page-group">
+    <div class="page">
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left" external
+               href="index" data-transition='slide-out'> <span
+                    class="icon icon-left"></span> 返回
+            </a>
+            <h1 class="title">商店列表</h1>
+        </header>
+        <div class="bar bar-header-secondary">
+            <div class="searchbar">
+                <a class="searchbar-cancel">取消</a>
+                <div class="search-input">
+                    <label class="icon icon-search" for="search"></label> <input
+                        type="search" id='search' placeholder='输入关键字...' />
                 </div>
-            </div>-->
+            </div>
         </div>
-        <div class="infinite-scroll-preloader">
-            <div class="preloader"></div>
+        <nav class="bar bar-tab">
+            <a class="tab-item" href="/o2o/frontend/index" external> <span
+                    class="icon icon-home"></span> <span class="tab-label">首页</span>
+            </a> <a class="tab-item" href="#" id="me"> <span
+                class="icon icon-me"></span> <span class="tab-label">我</span>
+        </a>
+        </nav>
+        <div class="content infinite-scroll infinite-scroll-bottom"
+             data-distance="100">
+            <!-- 这里是页面内容区 -->
+            <div class="shoplist-button-div" id="shoplist-search-div">
+                <!-- <a href="#" class="button">所有货物</a>
+                    <a href="#" class="button">吃的</a>
+                    <a href="#" class="button">喝的</a>
+                    <a href="#" class="button">Usual Button 1</a>
+                    <a href="#" class="button">Usual Button 1</a>
+                    <a href="#" class="button">Usual Button 1</a> -->
+            </div>
+            <div class="select-wrap">
+                <select class="select" id="area-search"></select>
+            </div>
+            <div class="list-div shop-list">
+                <!-- <div class="card">
+                        <div class="card-header">传统火锅店</div>
+                        <div class="card-content">
+                            <div class="list-block media-list">
+                                <ul>
+                                    <li class="item-content">
+                                        <div class="item-media">
+                                            <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44">
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-subtitle"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span>2015/01/15</span>
+                            <span>5 评论</span>
+                        </div>
+                    </div> -->
+            </div>
+            <div class="infinite-scroll-preloader">
+                <div class="preloader"></div>
+            </div>
         </div>
     </div>
-    <!--侧边栏-->
-
+</div>
+<!--侧边栏  -->
+<div class="panel-overlay"></div>
+<div class="panel panel-right panel-reveal" id="panel-left-demo">
+    <div class="content-block">
+        <p>
+            <a href="/o2o/frontend/myrecord" class="close-panel">消费记录</a>
+        </p>
+        <p>
+            <a href="/o2o/frontend/mypoint" class="close-panel">我的积分</a>
+        </p>
+        <p>
+            <a href="/o2o/frontend/pointrecord" class="close-panel">积分兑换记录</a>
+        </p>
+        <!-- Click on link with "close-panel" class will close panel -->
+    </div>
 </div>
 
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js" charset="utf-8"></script>
-<script type="text/javascript" src="/o2o/static/js/sm.js" charset="utf-8"></script>
-<script type="text/javascript" src="/o2o/static/js/sm-extend.js" charset="utf-8"></script>
-<script type="text/javascript" src="/o2o/static/js/common/common.js" charset="utf-8"></script>
-<script type="text/javascript" src="/o2o/static/js/frontend/shoplist.js" charset="utf-8"></script>
-<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/o2o/static/js/common/common.js' charset='utf-8'></script>
+<script type='text/javascript' src='/o2o/static/js/frontend/shoplist.js' charset='utf-8'></script>
 </body>
 </html>

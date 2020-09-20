@@ -112,8 +112,7 @@
         <where>
             <if test="shopCondition.shopCategory!=null and
             shopCondition.shopCategory.shopCategoryId!=null">
-                and s.shop_category_id=
-                #{shopCondition.shopCategory.shopCategoryId}
+                and s.shop_category_id=#{shopCondition.shopCategory.shopCategoryId}
             </if>
             <if test="shopCondition.shopCategory!=null
             and shopCondition.shopCategory.parent!=null
@@ -146,39 +145,45 @@
         s.priority DESC
         LIMIT #{rowIndex},#{pageSize};
     </select>
+
     <select id="queryShopCount" resultType="int">
         select count(1) from
         tb_shop s,
         tb_area a,
         tb_shop_category sc
         <where>
-            <if test="shopCondition.shopId!=null">
-                and shop_id = #{shopCondition.shopId}
-            </if>
             <if test="shopCondition.shopCategory!=null and
             shopCondition.shopCategory.shopCategoryId!=null">
                 and s.shop_category_id=
                 #{shopCondition.shopCategory.shopCategoryId}
             </if>
+
             <if test="shopCondition.shopCategory!=null
             and shopCondition.shopCategory.parent!=null
             and shopCondition.shopCategory.parent.shopCategoryId!=null">
                 and s.shop_category_id in (select shop_category_id from tb_shop_category
                 where parent_id=#{shopCondition.shopCategory.parent.shopCategoryId})
             </if>
+
             <if test="shopCondition.area!=null
 				 and shopCondition.area.areaId!=null">
-                and area_id =
+                and s.area_id =
                 #{shopCondition.area.areaId}
             </if>
-            <!-- 写like语句的时候 一般都会写成 like '% %' 在mybatis里面写就是应该是 like '%${name} %' 而不是
-                '%#{name} %' ${name} 是不带单引号的，而#{name} 是带单引号的 -->
             <if test="shopCondition.shopName!=null">
-                and shop_name like '%${shopCondition.shopName}%'
+                and s.shop_name like '%${shopCondition.shopName}%'
             </if>
             <if test="shopCondition.enableStatus!=null">
-                and enable_status = #{shopCondition.enableStatus}
+                and s.enable_status = #{shopCondition.enableStatus}
+            </if>
+            <if test="shopCondition.owner!=null and
+            shopCondition.owner.userId!=null">
+            and s.owner_id = #{shopCondition.owner.userId}
             </if>
         </where>
+        AND
+        s.area_id=a.area_id
+        AND
+        s.shop_category_id=sc.shop_category_id
     </select>
 </mapper>
