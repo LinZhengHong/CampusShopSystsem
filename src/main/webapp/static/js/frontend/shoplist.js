@@ -63,7 +63,8 @@ $(function() {
                         + '</div>' + '</div>' + '</li>' + '</ul>'
                         + '</div>' + '</div>' + '<div class="card-footer">'
                         + '<p class="color-gray">'
-                        + new Date(item.lastEditTime).Format("yyyy-MM-dd")
+                        //这里有个坑，新版的js不包含format函数，解决方法就是引用外部date.format.js文件来实现
+                        + new Date(item.lastEditTime).format("yyyy-MM-dd")
                         + '更新</p>' + '<span>点击查看</span>' + '</div>'
                         + '</div>';
                 });

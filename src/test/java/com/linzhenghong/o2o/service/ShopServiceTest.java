@@ -30,9 +30,9 @@ public class ShopServiceTest extends BaseTest {
     public void testGetShopList(){
         Shop shopCondition=new Shop();
         ShopCategory shopCategory=new ShopCategory();
-        shopCategory.setShopCategoryId(1L);
+        shopCategory.setShopCategoryId(12L);
         shopCondition.setShopCategory(shopCategory);
-        ShopExecution shopExecution=shopService.getShopList(shopCondition,1,2);
+        ShopExecution shopExecution=shopService.getShopList(shopCondition,1,6);
         System.out.println("店铺列表数"+shopExecution.getShopList().size());
         System.out.println("店铺总数:"+shopExecution.getCount());
     }

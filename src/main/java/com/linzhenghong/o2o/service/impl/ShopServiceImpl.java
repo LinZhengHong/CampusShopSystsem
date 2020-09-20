@@ -150,8 +150,6 @@ public class ShopServiceImpl implements ShopService{
 
     /**
      * 获取店铺图片
-     * @param shop
-     * @param shopImg
      */
     private void addShopImg(Shop shop, InputStream shopImgInputStream,String filename) {
         //获取shop图片目录的相对路径

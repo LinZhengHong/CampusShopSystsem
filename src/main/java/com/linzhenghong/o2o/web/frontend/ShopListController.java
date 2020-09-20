@@ -89,7 +89,7 @@ public class ShopListController {
     @RequestMapping(value = "/listshops",method =RequestMethod.GET)
     @ResponseBody
     private Map<String,Object> listShops(HttpServletRequest request){
-        Map<String, Object> modelMap = new HashMap<String, Object>();
+        Map<String,Object> modelMap=new HashMap<>();
         int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
         int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
         if ((pageIndex > -1) && (pageSize > -1)) {
@@ -140,7 +140,7 @@ public class ShopListController {
             shopCondition.setShopCategory(shopCategory);
         }
         //long与int
-        if (areaId!=-1){
+        if (areaId!=-1L){
             //查询位于某个区域Id下面的店铺列表
             Area area=new Area();
             area.setAreaId(areaId);
