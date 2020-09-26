@@ -1,7 +1,6 @@
 package com.linzhenghong.o2o.interceptor.shopadmin;
 
 import com.linzhenghong.o2o.entity.PersonInfo;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,12 +36,18 @@ public class ShopLoginInterceptor extends HandlerInterceptorAdapter {
             }
         }
         //若不满足登录验证，则直接跳转到账号登陆页面
-        PrintWriter out=response.getWriter();
+        /*PrintWriter out=response.getWriter();
         out.println("<html>");
         out.println("<script>");
-        out.println("windows.open ('"+request.getContextPath()+"/local/login?usertype=2','_self')");
-        out.println("</html>");
+        out.println("windows.open('"+request.getContextPath()+"/local/login?usertype=2','_self')");
         out.println("</script>");
+        out.println("</html>");*/
+
+        /*
+         * 用这种跳转方式去跳转到账号登陆页面
+         */
+        String redirectUrl=request.getContextPath()+"/local/login?usertype=2";
+        response.sendRedirect(redirectUrl);
         return false;
     }
 }

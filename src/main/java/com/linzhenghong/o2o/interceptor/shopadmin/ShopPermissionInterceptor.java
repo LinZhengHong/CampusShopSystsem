@@ -1,7 +1,6 @@
 package com.linzhenghong.o2o.interceptor.shopadmin;
 
 import com.linzhenghong.o2o.entity.Shop;
-import com.linzhenghong.o2o.service.ShopService;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;

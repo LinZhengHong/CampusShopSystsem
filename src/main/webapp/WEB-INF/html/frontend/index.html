@@ -22,7 +22,7 @@
                   <span class="icon icon-left"></span>
                   返回
               </a> -->
-            <h1 class="title">My School O2O</h1>
+            <h1 class="title">校园商铺</h1>
         </header>
         <nav class="bar bar-tab">
             <a class="tab-item active" href="#"> <span
@@ -35,15 +35,6 @@
             <!-- 这里是页面内容区 -->
             <div class="swiper-container index-banner" data-space-between='10'>
                 <div class="swiper-wrapper">
-                    <!-- <div class="swiper-slide img-wrap">
-                            <img class="banner-img" src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide img-wrap">
-                            <img class="banner-img" src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i4/TB10rkPGVXXXXXGapXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide img-wrap">
-                            <img class="banner-img" src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1kQI3HpXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt="">
-                        </div> -->
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -51,15 +42,6 @@
                 <a href="o2o/frontend/shoplist" external>全部商店</a>
             </div>
             <div class="row">
-                <!-- <div class="col-50 shop-classify">
-                        <div class='word'>
-                            <p class='shop-title'>本期推荐</p>
-                            <p class='shop-desc'>近期相关活动、新款上市、旅游资讯</p>
-                        </div>
-                        <div class='shop-classify-img-warp'>
-                            <img class='shop-img' src="static/index/display13.png">
-                        </div>
-                    </div> -->
             </div>
         </div>
     </div>
@@ -67,6 +49,12 @@
     <div class="panel-overlay"></div>
     <div class="panel panel-right panel-reveal" id="panel-left-demo">
         <div class="content-block">
+            <p>
+                <a href="/o2o/local/accountbind?usertype=1" class="close-panel">账号绑定</a>
+            </p>
+            <p>
+                <a id="bindOrChange"  href="/o2o/local/changepsw?usertype=1" class="close-panel">修改密码</a>
+            </p>
             <p>
                 <a href="o2o/frontend/myrecord" class="close-panel">消费记录</a>
             </p>
@@ -76,6 +64,10 @@
             <p>
                 <a href="o2o/frontend/pointrecord" class="close-panel">积分兑换记录</a>
             </p>
+            <p>
+                <a id="log-out" usertype="1" href="#" class="close-panel">退出系统</a>
+            </p>
+
             <!-- Click on link with "close-panel" class will close panel -->
         </div>
     </div>
@@ -86,5 +78,6 @@
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='/o2o/static/js/frontend/index.js' charset='utf-8'></script>
+<script type="text/javascript" src="/o2o/static/js/local/logout.js" charset="utf-8"></script>
 </body>
 </html>
