@@ -13,6 +13,9 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linzhenghong.o2o.entity.PersonInfo;
 import com.linzhenghong.o2o.util.wechat.message.pojo.AccessToken;
 import com.linzhenghong.o2o.util.wechat.message.pojo.Menu;
@@ -43,8 +46,9 @@ public class WechatUtil {
 			// 设置请求方式（GET/POST）
 			httpUrlConn.setRequestMethod(requestMethod);
 
-			if ("GET".equalsIgnoreCase(requestMethod))
+			if ("GET".equalsIgnoreCase(requestMethod)) {
 				httpUrlConn.connect();
+			}
 
 			// 当有数据需要提交时
 			if (null != outputStr) {
@@ -94,8 +98,8 @@ public class WechatUtil {
 	 * @param outputStr 提交的数据
 	 * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
 	 */
-	public static JSONObject httpsRequest(String requestUrl, String requestMethod, String outputStr) {
-		JSONObject jsonObject = null;
+	public static String httpsRequest(String requestUrl, String requestMethod, String outputStr) {
+//		JSONObject jsonObject = null;
 		StringBuffer buffer = new StringBuffer();
 		try {
 			// 创建SSLContext对象，并使用我们指定的信任管理器初始化
@@ -143,13 +147,13 @@ public class WechatUtil {
 			inputStream = null;
 			httpUrlConn.disconnect();
 			log.debug("https buffer:"+buffer.toString());
-			jsonObject = JSONObject.fromObject(buffer.toString());
+			/*jsonObject = JSONObject.fromObject(buffer.toString());*/
 		} catch (ConnectException ce) {
 			log.error("Weixin server connection timed out.");
 		} catch (Exception e) {
 			log.error("https request error:{}", e);
 		}
-		return jsonObject;
+		return buffer.toString();
 	}
 
 	/**
@@ -163,7 +167,7 @@ public class WechatUtil {
 	 * @param appsecret 密钥
 	 * @return
 	 */
-	public static AccessToken getAccessToken(String appid, String appsecret) {
+	/*public static AccessToken getAccessToken(String appid, String appsecret) {
 		AccessToken accessToken = null;
 
 		String requestUrl = access_token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
@@ -181,7 +185,7 @@ public class WechatUtil {
 			}
 		}
 		return accessToken;
-	}
+	}*/
 
 	/**
 	 * 菜单创建（POST） 限100（次/天）
@@ -195,7 +199,7 @@ public class WechatUtil {
 	 * @param accessToken 有效的access_token
 	 * @return 0表示成功，其他值表示失败
 	 */
-	public static int createMenu(Menu menu, String accessToken) {
+	/*public static int createMenu(Menu menu, String accessToken) {
 		int result = 0;
 		// 拼装创建菜单的url
 		String url = menu_create_url.replace("ACCESS_TOKEN", accessToken);
@@ -212,7 +216,7 @@ public class WechatUtil {
 		}
 
 		return result;
-	}
+	}*/
 
 	/**
 	 * 将WechatUser里的信息转换成PersonInfo的信息并返回PersonInfo实体类对象
@@ -229,8 +233,42 @@ public class WechatUtil {
 	}
 
 
-	public static UserAccessToken getUserAccessToken(String code) {
-		return null;
+	/**
+	 * 获取UserAccessToken实体类
+	 * @param code
+	 * @return
+	 * @throws Exception
+	 */
+	public static UserAccessToken getUserAccessToken(String code) throws Exception{
+		//测试号信息里的appId
+		String appId= "wx87e279e3d6fa4241";
+		log.debug("appId:"+appId);
+		//测试号信息里的appsecret
+		String appsecret="18b854c87de13725c1a91c36d5426c21";
+		log.debug("secret:"+appsecret);
+		//根据传入的code，拼接出访问微信定义好的接口的URL
+		String url="https://api.weixin.qq.com/sns/oauth2/access_token?appid="+appId+"&secret="+appsecret
+					+"&code="+code+"grant_type=authorization_code";
+		//向相应URL发送请求获取token json字符串
+		String tokenStr=httpsRequest(url,"GET",null);
+		log.debug("userAccessToken:"+tokenStr);
+		UserAccessToken token=new UserAccessToken();
+		ObjectMapper objectMapper=new ObjectMapper();
+		try{
+			token = objectMapper.readValue(tokenStr, UserAccessToken.class);
+		}catch (JsonParseException e){
+			log.error("获取用户accessToken失败:"+e.getMessage());
+			e.printStackTrace();
+		}catch (JsonMappingException e){
+			log.error("获取用户accessToken失败:"+e.getMessage());
+			e.printStackTrace();
+		}
+		if (token==null) {
+			log.error("获取用户accessToken失败");
+			return null;
+		}
+
+		return token;
 	}
 
 	public static WechatUser getUserInfo(String accessToken, String openId) {

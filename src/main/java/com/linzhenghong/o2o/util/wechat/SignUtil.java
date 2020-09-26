@@ -4,6 +4,9 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 
 /**
+ * 功能描述：在测试号里面设置接口配置信息的URL，
+ * 一经设置，微信公众号便会发请求到我们设置好的URL去
+ * 我们必须编写程序答应才能顺利连通微信公众号
  * 微信请求校验工具类
  * @author LinZhenHong
  */
@@ -15,6 +18,13 @@ public class SignUtil {
     private static String token="myo2o";
 
 
+    /**
+     * 检验signature对请求进行校验
+     * @param signature
+     * @param timestamp
+     * @param nonce
+     * @return
+     */
     public static boolean checkSignature(String signature,String timestamp,String nonce){
         String[] arr=new String[]{token,timestamp,nonce};
         //将token,timestamp,nonce三个参数进行字典序排序
@@ -23,6 +33,7 @@ public class SignUtil {
         for (int i=0;i<content.length();i++){
             content.append(arr[i]);
         }
+        //初始化加密对象
         MessageDigest messageDigest=null;
         String tmpStr=null;
 

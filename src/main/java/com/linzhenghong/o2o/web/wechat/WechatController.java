@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 /**
+ * 解析从微信发送过来的请求的signature,timestamp,nonce,echostr
  * @author LinZhenHong
  */
 @Controller
@@ -51,7 +52,7 @@ public class WechatController {
             out=response.getWriter();
             if (SignUtil.checkSignature(signature,timestamp,nonce)){
                 logger.debug("wechat get success");
-                out.println(echostr);
+                out.print(echostr);
             }
         }catch (Exception e){
             e.printStackTrace();

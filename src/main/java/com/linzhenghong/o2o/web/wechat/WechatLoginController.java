@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author LinZhenHong
- * 获取关注公众号之后的微信用户信息的接口，如果在微信浏览器里访问
- * https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd7f6c5b8899fba83&redirect_uri=http://o2o.yitiaojieinfo.com/o2o/wechatlogin/logincheck&role_type=1&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect
+ * 获取关注公众号之后的微信用户信息并作相应的处理，如果在微信浏览器里访问
+ * （微信自己的API）https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd7f6c5b8899fba83&redirect_uri=http://o2o.yitiaojieinfo.com/o2o/wechatlogin/logincheck&role_type=1&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect
  * 则这里将会获取到code之后再可以通过code获取到access_token进而获取到用户信息
  */
 @Controller
